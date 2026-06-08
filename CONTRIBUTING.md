@@ -22,7 +22,7 @@ Las **reglas duras** que no se negocian:
 Muchos repos de la org tienen CD: **un merge a `main` deploya a producción**. No asumas que hay staging entre `main` y los usuarios reales.
 
 - **NUNCA pushees directo a `main`.** Se integra **solo vía PR**.
-- El **camino de merge** es el script auditado del repo (`scripts/merge-pr.sh <PR#>` donde exista): aborta si los checks no están verdes o el PR no está `APPROVED`, y mergea con `--squash --delete-branch`.
+- El **camino de merge** es el comando auditado `goberna-merge-pr` (`REPO=owner/repo`): aborta si los checks no están verdes o el PR no está `APPROVED`, y mergea con `--squash`. Junto con `goberna-branch-state` (read-only; colisiones de shared-core pre-PR) y `goberna-journal-set-when` (arregla el `when` del journal), viene en el plugin **`goberna-agents`** y queda en el PATH tras instalar — no hace falta clonar `platform`.
 - **Never auto-push a prod.** La promoción a prod (`workflow_dispatch target=prod`) la autoriza solo quien el repo designe como responsable de release. **[por-repo]**
 - Los repos que **no** deployan (librerías, configs, docs) igual usan PRs, pero `main` no implica producción ahí.
 
@@ -70,7 +70,7 @@ Tipos: `feat`, `fix`, `chore`, `refactor`, `test`, `docs`, `perf`.
 
 1. **Rebase** sobre `origin/main`: `git fetch origin && git rebase origin/main` (rebase, no merge — history lineal).
 2. **CI verde local** con los comandos del repo (típicamente `typecheck` + `test`, y el `build` si tocaste frontend). **[por-repo]**
-3. **Merge auditado:** una vez aprobado, usá el script de merge del repo (`scripts/merge-pr.sh <PR#>` donde exista). **Jamás push directo a `main`.**
+3. **Merge auditado:** una vez aprobado, usá `goberna-merge-pr`. **Jamás push directo a `main`.**
 
 ## Pull Requests
 
@@ -84,7 +84,7 @@ Tipos: `feat`, `fix`, `chore`, `refactor`, `test`, `docs`, `perf`.
 
 Si el repo tiene migraciones (ej. Drizzle + Postgres), el orden de cambios de schema y el manejo del journal de migraciones es **crítico y específico del repo**. Seguí el `CONTRIBUTING.md` propio de ese repo. **[por-repo]**
 
-> Regla transversal que sí aplica siempre: cambios de schema → generá la migración, commiteá la carpeta de migraciones **completa** (SQL + snapshots), y no calcules timestamps/secuencias del journal a mano (usá el script del repo).
+> Regla transversal que sí aplica siempre: cambios de schema → generá la migración, commiteá la carpeta de migraciones **completa** (SQL + snapshots), y no calcules timestamps/secuencias del journal a mano (usá `goberna-journal-set-when`).
 
 ## Reglas duras de CI (transversales)
 
@@ -106,4 +106,4 @@ Nunca commitear tokens, claves o passwords. Si descubrís uno en el repo → **a
 
 ## CI/CD y agentes
 
-El CI reutilizable, el workflow de deploy, los scripts de merge/journal y los agentes/plugins de Claude Code viven centralizados en el repo [**`platform`**](https://github.com/Goberna-Lab/platform). Cada repo consume esos workflows vía `workflow_call` y adopta los plugins vía su `settings.json`. Ver el README de `platform` para el contrato exacto.
+El CI reutilizable, el workflow de deploy y los agentes/plugins de Claude Code viven centralizados en el repo [**`platform`**](https://github.com/Goberna-Lab/platform). Cada repo consume esos workflows vía `workflow_call` y adopta los plugins vía su `settings.json`. Las herramientas de flujo (`goberna-branch-state`, `goberna-journal-set-when`, `goberna-merge-pr`) se shippean en el plugin **`goberna-agents`** y quedan en el PATH tras instalar — no hay que clonar `platform` para usarlas. Ver el README de `platform` para el contrato exacto.

@@ -49,6 +49,14 @@ Tres plugins a nivel usuario:
 
 Si actualizaste plugins en una sesión viva: `/reload-plugins`.
 
+### Comandos que te quedan en el PATH
+
+Tras instalar, el plugin **goberna-agents** deja 3 comandos disponibles en cualquier repo (operan sobre el cwd):
+
+- **`goberna-branch-state`** — read-only; detecta colisiones de shared-core entre ramas activas antes de abrir el PR.
+- **`goberna-journal-set-when`** — arregla el `when` del último registro del journal Drizzle (lo deja monótono vs `origin/main`).
+- **`goberna-merge-pr`** — merge con gates (mergeable + checks verdes + approval); lo usa el integrador, nunca pushea `main` directo.
+
 ---
 
 ## 2. Empezar una tarea
@@ -125,7 +133,7 @@ y `ref = main`.
 | `git push` a `main`/`master` | Rama feature + PR | `main` es prod. El hook lo bloquea igual. |
 | `npm install` / `yarn` | `bun install --frozen-lockfile` | El stack es Bun. |
 | `bun <archivo>.ts` en un step de CI | `bun x vitest`, `tsc`, `vite` (binarios) | El runner vps1 no tiene AVX → **segfault** (exit 132). |
-| Journal con `when` no-monótono | `goberna-migrate` (usa `journal-set-when.sh`) | Drizzle **saltea la migración en silencio** en prod. |
+| Journal con `when` no-monótono | `goberna-migrate` (usa `goberna-journal-set-when`) | Drizzle **saltea la migración en silencio** en prod. |
 | `DROP` / `RENAME` / `SET NOT NULL` en el mismo PR que el código que lo usa | Cambio **aditivo** ahora, el destructivo en un deploy **posterior** | El deploy migra **antes** de levantar el código nuevo (expand-only). |
 
 ---
@@ -133,5 +141,5 @@ y `ref = main`.
 ## Links
 
 - **[CONTRIBUTING.md](./CONTRIBUTING.md)** — convenciones de equipo (branching, commits, PRs, reglas de CI).
-- **[Goberna-Lab/platform](https://github.com/Goberna-Lab/platform)** — CI/CD reutilizable, deploy, scripts de merge/journal y agentes.
+- **[Goberna-Lab/platform](https://github.com/Goberna-Lab/platform)** — CI/CD reutilizable, deploy y agentes.
 - **[ONBOARDING.md de platform](https://github.com/Goberna-Lab/platform/blob/main/ONBOARDING.md)** — instalación detallada de Claude Code y los guardrails.

@@ -4,6 +4,19 @@
 >
 > Donde veas **[por-repo]**, el detalle exacto (rutas, comandos, nombres de paquete, integradores) **lo define cada repo** en su README o en su `CONTRIBUTING.md` propio.
 
+## Quickstart
+
+**¿Recién entrás? Empezá por [`DEVELOPER.md`](./DEVELOPER.md)** — es el tutorial paso a paso (instalar plugins, primera rama, primer PR). Este `CONTRIBUTING.md` es la **referencia** de reglas; `DEVELOPER.md` es el **walkthrough**.
+
+Las **reglas duras** que no se negocian:
+
+- **`main` = PRODUCCIÓN.** Nunca pushees ni commitees directo a `main`. El merge lo decide el integrador y dispara deploy a prod.
+- **Bun, no npm/yarn.** Monorepo de workspaces Bun. Comandos: `bun install --frozen-lockfile`, `bun run typecheck`, `bun run test`.
+- **Siempre rama + PR.** Branch `feat/…` `fix/…` `chore/…` `docs/…`, Conventional Commits, y se integra **solo vía PR**.
+- **Migraciones monótonas + expand-only.** El `when` del journal debe ser monótono vs `origin/main` (si no, el deploy **saltea la migración en silencio**); las migraciones son **aditivas** (solo `ADD` — `DROP`/`RENAME`/`SET NOT NULL`/`ALTER TYPE` van en un deploy posterior).
+- **Verificá antes del PR.** `typecheck` + `test` verdes en local antes de decir "listo".
+- **PR ≤ 400 líneas reales.** Más grande → partilo en chained PRs.
+
 ## `main` = PRODUCCIÓN (en los repos que deployan)
 
 Muchos repos de la org tienen CD: **un merge a `main` deploya a producción**. No asumas que hay staging entre `main` y los usuarios reales.

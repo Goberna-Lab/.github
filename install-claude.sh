@@ -45,4 +45,7 @@ Auto-update del marketplace privado (recomendado): agrega a tu ~/.zshrc o ~/.bas
 
 Verifica:           claude plugin list
 En una sesion viva: /reload-plugins
+
+Como USAR el sistema con Claude (playbook de prompts + sesion de ejemplo):
+  https://github.com/Goberna-Lab/.github/blob/main/USANDO-CLAUDE.md
 EOF

@@ -6,6 +6,9 @@
 `main` = **PRODUCCIÓN**. Un merge a `main` deploya a usuarios reales. Por eso nunca trabajás
 directo sobre `main`: rama feature + PR, siempre. El merge lo decide el integrador (Manuel).
 
+> 💡 **¿Ya instalaste y querés ver cómo se *usa* el sistema con Claude?** → **[USANDO-CLAUDE.md](./USANDO-CLAUDE.md)**:
+> playbook de prompts (qué escribirle a Claude según la tarea) + una sesión de ejemplo de rama a PR.
+
 ---
 
 ## 1. Setup (una sola vez por máquina)
@@ -142,6 +145,7 @@ y `ref = main`.
 
 ## Links
 
+- **[USANDO-CLAUDE.md](./USANDO-CLAUDE.md)** — playbook de prompts: cómo le hablás a Claude para que use el sistema (+ sesión de ejemplo).
 - **[CONTRIBUTING.md](./CONTRIBUTING.md)** — convenciones de equipo (branching, commits, PRs, reglas de CI).
 - **[Goberna-Lab/platform](https://github.com/Goberna-Lab/platform)** — CI/CD reutilizable, deploy y agentes.
 - **[ONBOARDING.md de platform](https://github.com/Goberna-Lab/platform/blob/main/ONBOARDING.md)** — instalación detallada de Claude Code y los guardrails.

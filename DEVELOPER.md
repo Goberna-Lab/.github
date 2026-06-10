@@ -25,17 +25,19 @@ export GH_TOKEN=<tu_token_de_github>
 Verificá que quedó:
 
 ```bash
-claude plugin list      # tienen que aparecer goberna-agents, goberna-skills, goberna-hooks
+claude plugin list      # tienen que aparecer goberna-agents, goberna-specialists, goberna-skills, goberna-hooks
 ```
 
 ### Qué te queda instalado
 
-Tres plugins a nivel usuario:
+Cuatro plugins a nivel usuario:
 
 - **goberna-agents** — `worktree-merge-supervisor` (detecta colisiones de shared-core /
   migraciones / contratos antes del PR) y `release-captain` (orquesta la cola de merges;
   **advisory**, nunca pushea a `main`).
-- **goberna-skills** — skills compartidas de la empresa (`goberna-migrate`, `goberna-pr`…).
+- **goberna-specialists** — 13 agentes de dominio para dispatch on-demand (postgres-pro,
+  security-auditor, typescript-pro, code-reviewer, devops-engineer, …).
+- **goberna-skills** — skills compartidas de la empresa (`goberna-migrate`, `goberna-pr`, `goberna-design-system`, `judgment-day`…).
 - **goberna-hooks** — guardrails automáticos. **Solo se activan en repos de Goberna-Lab.**
 
 ### Qué hacen los hooks (solos, sin que te acuerdes)

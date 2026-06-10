@@ -17,7 +17,7 @@ set -euo pipefail
 
 MARKET_REPO="Goberna-Lab/platform"   # repo que hostea el marketplace
 MARKET_NAME="goberna-tools"          # 'name' dentro de .claude-plugin/marketplace.json
-PLUGINS="goberna-agents goberna-skills goberna-hooks"
+PLUGINS="goberna-agents goberna-specialists goberna-skills goberna-hooks"
 
 command -v claude >/dev/null 2>&1 || {
   echo "ERROR: no encuentro el CLI 'claude'. Instala Claude Code primero: https://claude.com/claude-code" >&2
@@ -34,8 +34,9 @@ done
 
 cat <<'EOF'
 
-OK. Listo. Los 3 plugins quedaron instalados a nivel usuario (aplican a TODOS tus repos):
+OK. Listo. Los 4 plugins quedaron instalados a nivel usuario (aplican a TODOS tus repos):
   - goberna-agents : worktree-merge-supervisor + release-captain
+  - goberna-specialists : 13 agentes de dominio (postgres, security, typescript, code-review, devops, ...)
   - goberna-skills : skills compartidas de la empresa
   - goberna-hooks  : guardrails automaticos (solo se activan en repos de Goberna-Lab)
 
